@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Calcul de la moyenne générale</title>
+    <title>Calcul moyenne générale BAC-PC made by Anas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -63,7 +63,7 @@
     </style>
 </head>
 <body>
-    <h1>Calcul de la moyenne générale</h1>
+    <h1>Calcul moyenne générale BAC-PC made by Anas</h1>
     <form id="gradeForm">
         <label for="conduite">Conduite :</label>
         <input type="number" id="conduite" min="0" max="20" step="1" required><br>
@@ -96,7 +96,7 @@
         <input type="number" id="SVT" min="0" max="20" step="1" required><br>
 
         <button type="button" onclick="calculate()">Calculer</button>
-        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures à 20.</div>
+        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou egales à 20 mkelekh(a).</div>
     </form>
 
     <div id="result"></div>
@@ -134,7 +134,7 @@
 
             if (isValid) {
                 const moyenneGenerale = totalNotes / totalCoefficients;
-                document.getElementById('result').innerText = "La moyenne générale de l'élève est de : " + moyenneGenerale.toFixed(2);
+                document.getElementById('result').innerText = "moyenne générale : " + moyenneGenerale.toFixed(2);
                 document.getElementById('errorMessage').style.display = 'none';
             } else {
                 document.getElementById('result').innerText = "";
