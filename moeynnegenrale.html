@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calcul de la moyenne générale</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .error {
+            border: 1px solid red;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcul de la moyenne générale</h1>
+    <form id="gradeForm">
+        <label for="conduite">Conduite :</label>
+        <input type="number" id="conduite" min="0" max="20" step="1" required><br>
+
+        <label for="EI">EI :</label>
+        <input type="number" id="EI" min="0" max="20" step="1" required><br>
+
+        <label for="EPS">EPS :</label>
+        <input type="number" id="EPS" min="0" max="20" step="1" required><br>
+
+        <label for="math">Math :</label>
+        <input type="number" id="math" min="0" max="20" step="1" required><br>
+
+        <label for="ph">PH :</label>
+        <input type="number" id="ph" min="0" max="20" step="1" required><br>
+
+        <label for="physique">Physique :</label>
+        <input type="number" id="physique" min="0" max="20" step="1" required><br>
+
+        <label for="anglais">Anglais :</label>
+        <input type="number" id="anglais" min="0" max="20" step="1" required><br>
+
+        <label for="AR">AR :</label>
+        <input type="number" id="AR" min="0" max="20" step="1" required><br>
+
+        <label for="FR">FR :</label>
+        <input type="number" id="FR" min="0" max="20" step="1" required><br>
+
+        <label for="SVT">SVT :</label>
+        <input type="number" id="SVT" min="0" max="20" step="1" required><br>
+
+        <button type="button" onclick="calculate()">Calculer</button>
+        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures à 20.</div>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            const coefficients = {
+                "conduite": 1,
+                "EI": 2,
+                "EPS": 4,
+                "math": 7,
+                "ph": 2,
+                "physique": 7,
+                "anglais": 2,
+                "AR": 2,
+                "FR": 4,
+                "SVT": 5
+            };
+
+            let totalNotes = 0;
+            let totalCoefficients = 0;
+            let isValid = true;
+
+            for (let matiere in coefficients) {
+                const note = parseFloat(document.getElementById(matiere).value);
+                if (isNaN(note) || note < 0 || note > 20) {
+                    isValid = false;
+                    document.getElementById(matiere).classList.add('error');
+                } else {
+                    totalNotes += coefficients[matiere] * note;
+                    totalCoefficients += coefficients[matiere];
+                    document.getElementById(matiere).classList.remove('error');
+                }
+            }
+
+            if (isValid) {
+                const moyenneGenerale = totalNotes / totalCoefficients;
+                document.getElementById('result').innerText = "La moyenne générale de l'élève est de : " + moyenneGenerale.toFixed(2);
+                document.getElementById('errorMessage').style.display = 'none';
+            } else {
+                document.getElementById('result').innerText = "";
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
