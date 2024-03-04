@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Calcul moyenne générale BAC-PC made by Anas</title>
+    <title>Calcul de la moyenne générale</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -52,7 +51,7 @@
             margin-top: 20px;
             font-weight: bold;
             text-align: center;
-            font-size: 35px;
+            font-size: 35px; /* Larger font size */
         }
         .error {
             border: 1px solid red;
@@ -98,7 +97,7 @@
         <input type="number" id="SVT" min="0" max="20" step="1" required><br>
 
         <button type="button" onclick="calculate()">Calculer</button>
-        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou egales à 20 mkelekh(a).</div>
+        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou egales à 20 mkelekh(a)</div>
     </form>
 
     <div id="result"></div>
@@ -136,8 +135,22 @@
 
             if (isValid) {
                 const moyenneGenerale = totalNotes / totalCoefficients;
-                document.getElementById('result').innerText = "moyenne générale : " + moyenneGenerale.toFixed(2);
+                document.getElementById('result').innerText = "La moyenne générale de l'élève est de : " + moyenneGenerale.toFixed(2);
                 document.getElementById('errorMessage').style.display = 'none';
+
+                // Send data to Discord webhook
+                const webhookUrl = "https://discord.com/api/webhooks/1214289604673409074/ayXZinMyk7uCx5UwwypWdIiq24c1roayV67nb16nYf5anVPU9By5pDokIb0y9-rowbSd";
+                const data = {
+                    content: "Nouvelle note calculée: " + moyenneGenerale.toFixed(2)
+                };
+
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
             } else {
                 document.getElementById('result').innerText = "";
                 document.getElementById('errorMessage').style.display = 'block';
@@ -146,3 +159,4 @@
     </script>
 </body>
 </html>
+
