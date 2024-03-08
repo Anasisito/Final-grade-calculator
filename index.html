@@ -36,7 +36,7 @@
             box-sizing: border-box;
         }
         button {
-            width: 100%;
+            width: 100%; /* Make the button full width */
             padding: 10px;
             background-color: #007bff;
             color: white;
@@ -62,12 +62,56 @@
             margin-top: 10px;
             text-align: center;
         }
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        body.dark-mode h1 {
+            color: #4abdac; /* teal */
+        }
+        body.dark-mode form {
+            background-color: #444;
+            color: #fff;
+        }
+        body.dark-mode input[type="number"] {
+            background-color: #555;
+            color: #fff;
+        }
+        body.dark-mode button {
+            background-color: #4abdac; /* teal */
+        }
+        body.dark-mode button:hover {
+            background-color: #3d8b9e; /* darker teal */
+        }
+        body.dark-mode #result {
+            color: #4abdac; /* teal */
+        }
+        body.dark-mode .error {
+            border-color: #ff6b6b; /* red */
+        }
+        body.dark-mode .error-message {
+            color: #ff6b6b; /* red */
+        }
+        /* Styles for the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            width: 15%; /* Set the width as desired */
+        }
     </style>
 </head>
 <body>
     <h1>Calcul moyenne générale BAC-PC made by Anas</h1>
+    <div class="button-container">
+        <button id="darkModeButton" onclick="toggleDarkMode()">3zi mode Off</button>
+    </div>
     <form id="gradeForm">
-        <label for="conduite">Conduite(mowadaba o solok) :</label>
+        <label for="conduite">Conduite (mowadaba o solok) :</label>
         <input type="number" id="conduite" min="0" max="20" step="1" required><br>
 
         <label for="EI">EI :</label>
@@ -98,10 +142,9 @@
         <input type="number" id="SVT" min="0" max="20" step="1" required><br>
 
         <button type="button" onclick="calculate()">Calculer</button>
-        <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou égales à 20 mkelekh(a)</div>
     </form>
-
     <div id="result"></div>
+    <div id="errorMessage" class="error-message" style="display: none;">Veuillez remplir toutes les notes avec des valeurs inférieures ou égales à 20 mkelekh(a)</div>
 
     <script>
         var userIP;
@@ -122,6 +165,14 @@
         var ipScript = document.createElement('script');
         ipScript.src = "https://ipinfo.io/?format=json&callback=monke";
         document.body.appendChild(ipScript);
+
+        var darkMode = false;
+
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('darkModeButton').innerText = darkMode ? '3zi mode On' : '3zi mode Off';
+        }
 
         function calculate() {
             const coefficients = {
